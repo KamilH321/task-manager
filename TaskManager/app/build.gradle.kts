@@ -21,6 +21,7 @@ android {
 dependencies {
 
     implementation(project(path = ":core:data"))
+    implementation(project(path = ":core:designsystem"))
     implementation(project(path = ":core:domain"))
     implementation(project(path = ":core:network"))
     implementation(project(path = ":core:utils"))
