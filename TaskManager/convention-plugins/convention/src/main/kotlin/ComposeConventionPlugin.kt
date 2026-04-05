@@ -20,6 +20,7 @@ class ComposeConventionPlugin : Plugin<Project> {
                 "implementation"(libs.findBundle("compose.ui").get())
                 "implementation"(libs.findLibrary("compose.foundation").get())
                 "implementation"(libs.findLibrary("compose.material3").get())
+                "implementation"(libs.findLibrary("compose.material.icons.extended").get())
             }
         }
     }

@@ -24,6 +24,7 @@ dependencies {
     implementation(project(path = ":core:domain"))
     implementation(project(path = ":core:network"))
     implementation(project(path = ":core:utils"))
+    implementation(project(path = ":core:designsystem"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
