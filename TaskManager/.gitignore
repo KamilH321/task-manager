@@ -14,3 +14,7 @@
 .cxx
 local.properties
 /.kotlin
+
+.idea/
+core/designsystem/build/
+*/build/
