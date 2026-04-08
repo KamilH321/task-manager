@@ -25,6 +25,9 @@ dependencies {
     implementation(project(path = ":core:network"))
     implementation(project(path = ":core:utils"))
     implementation(project(path = ":core:designsystem"))
+    implementation(project(path = ":feature:auth"))
+    implementation(project(path = ":core:build-config:api"))
+    implementation(project(path = ":core:build-config:impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

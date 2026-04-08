@@ -9,6 +9,10 @@ android {
 
 dependencies {
 
+    implementation(project(path = ":core:build-config:api"))
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 }
