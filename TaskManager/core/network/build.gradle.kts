@@ -10,6 +10,7 @@ android {
 dependencies {
 
     implementation(project(path = ":core:build-config:api"))
+    implementation(project(path = ":core:domain"))
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
