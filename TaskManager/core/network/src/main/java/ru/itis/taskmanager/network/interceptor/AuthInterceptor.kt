@@ -13,7 +13,7 @@ class AuthInterceptor @Inject constructor(
 
         val token = sessionRepository.getAccessToken()
 
-        val request = if (token.isBlank()) {
+        val request = if (token.isNullOrBlank()) {
             chain.request()
         } else {
             chain.request()
