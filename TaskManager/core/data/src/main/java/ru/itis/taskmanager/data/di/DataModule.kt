@@ -25,15 +25,4 @@ interface DataModule {
     fun bindSessionRepository(
         impl: SessionRepositoryImpl
     ): SessionRepository
-
-    companion object {
-
-        private const val PREFS_NAME = "task_manager_prefs"
-
-        @Provides
-        @Singleton
-        fun provideSharedPreferences(context: Context): SharedPreferences {
-            return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        }
-    }
 }

@@ -20,10 +20,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder().create()
-
-    @Provides
-    @Singleton
     fun provideOkHttpClient(
         apiKeyInterceptor: ApiKeyInterceptor,
         authInterceptor: AuthInterceptor
@@ -40,13 +36,12 @@ object NetworkModule {
     fun provideRetrofit(
         buildConfigProvider: BuildConfigProvider,
         okHttpClient: OkHttpClient,
-        gson: Gson
     ): Retrofit {
 
         return Retrofit.Builder()
             .baseUrl(buildConfigProvider.getApiBaseUrl())
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
