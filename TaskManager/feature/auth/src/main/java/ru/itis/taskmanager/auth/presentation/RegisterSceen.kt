@@ -24,37 +24,35 @@ import ru.itis.taskmanager.designsystem.components.buttons.TaskManagerOutlinedBu
 import ru.itis.taskmanager.designsystem.components.inputs.TaskManagerTextField
 
 @Composable
-fun AuthRouteScreen(
+fun RegisterRouteScreen(
     factory: ViewModelProvider.Factory,
-    onNavigateToRegister: () -> Unit,
-    onAuthenticated: () -> Unit
+    onBackToAuth: () -> Unit
 ) {
-    val viewModel: AuthViewModel = viewModel(factory = factory)
+    val viewModel: RegisterViewModel = viewModel(factory = factory)
     val state by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(state.authenticated) {
-        if (state.authenticated) {
-            onAuthenticated()
-            viewModel.consumeAuthEvent()
+    LaunchedEffect(state.successMessage) {
+        if (state.successMessage != null) {
+            onBackToAuth()
         }
     }
 
-    AuthScreen(
+    RegisterScreen(
         state = state,
         onUsernameChange = viewModel::onUsernameChange,
         onPasswordChange = viewModel::onPasswordChange,
-        onLoginClick = viewModel::onLoginClick,
-        onRegisterClick = onNavigateToRegister
+        onRegisterClick = viewModel::onRegisterClick,
+        onBackClick = onBackToAuth
     )
 }
 
 @Composable
-fun AuthScreen(
-    state: AuthUiState,
+fun RegisterScreen(
+    state: RegisterUiState,
     onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+    onRegisterClick: () -> Unit,
+    onBackClick: () -> Unit
 ) {
     Scaffold { paddingValues ->
         Column(
@@ -66,14 +64,8 @@ fun AuthScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Вход",
+                text = "Регистрация",
                 style = MaterialTheme.typography.headlineMedium
-            )
-
-            Text(
-                text = "Введите данные для входа в профиль",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             TaskManagerTextField(
@@ -100,14 +92,14 @@ fun AuthScreen(
             )
 
             TaskManagerButton(
-                text = "Войти",
-                onClick = onLoginClick,
+                text = "Создать аккаунт",
+                onClick = onRegisterClick,
                 isLoading = state.isLoading
             )
 
             TaskManagerOutlinedButton(
-                text = "Регистрация",
-                onClick = onRegisterClick,
+                text = "Назад",
+                onClick = onBackClick,
                 isLoading = state.isLoading
             )
 
@@ -115,6 +107,14 @@ fun AuthScreen(
                 Text(
                     text = it,
                     color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            state.successMessage?.let {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

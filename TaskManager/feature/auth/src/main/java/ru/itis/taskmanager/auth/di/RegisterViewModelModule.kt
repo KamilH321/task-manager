@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.itis.taskmanager.auth.presentation.AuthViewModel
+import ru.itis.taskmanager.auth.presentation.RegisterViewModel
 import ru.itis.taskmanager.utils.di.ViewModelKey
 
 @Module
-interface AuthViewModelModule {
+interface RegisterViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AuthViewModel::class)
-    fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
+    @ViewModelKey(RegisterViewModel::class)
+    fun bindRegisterViewModel(viewModel: RegisterViewModel): ViewModel
 }
