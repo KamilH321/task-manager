@@ -94,7 +94,7 @@ fun RegisterScreen(
             )
 
             TaskManagerButton(
-                text = stringResource(R.string.resister_button_text),
+                text = stringResource(R.string.sign_up_button_text),
                 onClick = onRegisterClick,
                 isLoading = state.isLoading
             )

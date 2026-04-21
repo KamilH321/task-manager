@@ -10,6 +10,6 @@
 
     <!-- Reg Screen -->
     <string name="back_button_text">Назад</string>
-    <string name="register_button_text">Создать аккаунт</string>
+    <string name="sign_up_button_text">Создать аккаунт</string>
 
 </resources>

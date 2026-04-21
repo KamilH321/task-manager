@@ -76,7 +76,7 @@ fun ProfileScreen(
                         Text(stringResource(R.string.user_label), style = MaterialTheme.typography.titleMedium)
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(stringResource(R.string.id_label, user.id))
-                        Text(stringResource(R.string.username_label, user.username))
+                        Text(stringResource(R.string.username_label_, user.username))
                         Text(stringResource(R.string.created_at_label, user.createdAt))
                     }
                 }
@@ -91,7 +91,7 @@ fun ProfileScreen(
             }
 
             TaskManagerButton(
-                text = stringResource(R.string.loading_text),
+                text = stringResource(R.string.logout_button_text),
                 onClick = onLogoutClick
             )
         }
