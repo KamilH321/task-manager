@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.itis.taskmanager.designsystem.components.buttons.TaskManagerButton
 import ru.itis.taskmanager.designsystem.components.cards.TaskManagerCard
+import ru.itis.taskmanager.profile.R
 
 @Composable
 fun ProfileRouteScreen(
@@ -57,13 +59,13 @@ fun ProfileScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Профиль",
+                text = stringResource(R.string.header_text),
                 style = MaterialTheme.typography.headlineMedium
             )
 
             if (state.isLoading) {
                 Text(
-                    text = "Загружаем профиль...",
+                    text = stringResource(R.string.loading_text),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -71,11 +73,11 @@ fun ProfileScreen(
             state.user?.let { user ->
                 TaskManagerCard(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text("Пользователь", style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.user_label), style = MaterialTheme.typography.titleMedium)
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("id: ${user.id}")
-                        Text("username: ${user.username}")
-                        Text("createdAt: ${user.createdAt}")
+                        Text(stringResource(R.string.id_label, user.id))
+                        Text(stringResource(R.string.username_label, user.username))
+                        Text(stringResource(R.string.created_at_label, user.createdAt))
                     }
                 }
             }
@@ -89,7 +91,7 @@ fun ProfileScreen(
             }
 
             TaskManagerButton(
-                text = "Выйти",
+                text = stringResource(R.string.loading_text),
                 onClick = onLogoutClick
             )
         }

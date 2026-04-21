@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.itis.taskmanager.designsystem.components.buttons.TaskManagerButton
 import ru.itis.taskmanager.designsystem.components.buttons.TaskManagerOutlinedButton
 import ru.itis.taskmanager.designsystem.components.inputs.TaskManagerTextField
+import ru.itis.taskmanager.auth.R
 
 @Composable
 fun RegisterRouteScreen(
@@ -64,21 +66,21 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Регистрация",
+                text = stringResource(R.string.resister_button_text),
                 style = MaterialTheme.typography.headlineMedium
             )
 
             TaskManagerTextField(
                 value = state.username,
                 onValueChange = onUsernameChange,
-                label = "Username",
+                label = stringResource(R.string.username_label),
                 singleLine = true
             )
 
             OutlinedTextField(
                 value = state.password,
                 onValueChange = onPasswordChange,
-                label = { Text("Password") },
+                label = { Text(stringResource(R.string.password_label)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
@@ -92,13 +94,13 @@ fun RegisterScreen(
             )
 
             TaskManagerButton(
-                text = "Создать аккаунт",
+                text = stringResource(R.string.resister_button_text),
                 onClick = onRegisterClick,
                 isLoading = state.isLoading
             )
 
             TaskManagerOutlinedButton(
-                text = "Назад",
+                text = stringResource(R.string.back_button_text),
                 onClick = onBackClick,
                 isLoading = state.isLoading
             )

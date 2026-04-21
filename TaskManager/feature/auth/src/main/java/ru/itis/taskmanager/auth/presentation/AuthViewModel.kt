@@ -40,7 +40,7 @@ class AuthViewModel @Inject constructor(
             runCatching {
                 loginUseCase(state.username, state.password)
                 getUserUseCase()
-            }.onSuccess { user ->
+            }.onSuccess {
                 _uiState.update { it.copy(isLoading = false, authenticated = true) }
             }.onFailure { throwable ->
                 _uiState.update {
