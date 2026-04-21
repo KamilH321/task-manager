@@ -26,6 +26,7 @@ dependencies {
     implementation(project(path = ":core:network"))
     implementation(project(path = ":core:utils"))
     implementation(project(path = ":core:designsystem"))
+    implementation(project(path = ":core:navigation"))
     implementation(project(path = ":feature:auth"))
     implementation(project(path = ":feature:profile"))
     implementation(project(path = ":core:build-config:api"))

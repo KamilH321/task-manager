@@ -6,7 +6,7 @@ import androidx.navigation3.runtime.NavKey
 import ru.itis.taskmanager.auth.presentation.AuthRouteScreen
 import ru.itis.taskmanager.auth.presentation.RegisterRouteScreen
 
-fun EntryProviderScope<NavKey>.authEntries(
+fun EntryProviderScope<AuthNavKey>.authEntries(
     factory: ViewModelProvider.Factory,
     onNavigateToRegister: () -> Unit,
     onAuthenticated: () -> Unit,

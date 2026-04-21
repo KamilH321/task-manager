@@ -4,11 +4,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import ru.itis.taskmanager.profile.navigation.ProfileRoute
@@ -19,9 +20,11 @@ fun MainShellScreen(
     factory: ViewModelProvider.Factory,
     onLogout: () -> Unit
 ) {
-    val backStack = rememberNavBackStack(ProfileRoute)
+    val navigator: Navigator<NavKey> = remember {
+        NavigatorImpl(ProfileRoute)
+    }
 
-    val current = backStack.lastOrNull()
+    val current = navigator.backstack.lastOrNull()
 
     Scaffold(
         bottomBar = {
@@ -30,8 +33,7 @@ fun MainShellScreen(
                 NavigationBarItem(
                     selected = current == ProfileRoute,
                     onClick = {
-                        backStack.clear()
-                        backStack.add(ProfileRoute)
+                        navigator.clearAndNavigate(ProfileRoute)
                     },
                     icon = { Text("P") },
                     label = { Text("Профиль") }
@@ -41,11 +43,11 @@ fun MainShellScreen(
     ) { padding ->
 
         NavDisplay(
-            backStack = backStack,
+            backStack = navigator.backstack,
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize(),
-            onBack = { backStack.removeLastOrNull() },
+            onBack = { navigator.pop() },
             entryDecorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator(),
                 rememberViewModelStoreNavEntryDecorator()
