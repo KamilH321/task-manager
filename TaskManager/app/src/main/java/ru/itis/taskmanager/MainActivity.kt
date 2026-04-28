@@ -18,20 +18,33 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import ru.itis.taskmanager.designsystem.components.buttons.*
 import ru.itis.taskmanager.designsystem.components.cards.TaskManagerCard
 import ru.itis.taskmanager.designsystem.components.cards.TaskManagerStyledCard
 import ru.itis.taskmanager.designsystem.components.inputs.TaskManagerTextField
 import ru.itis.taskmanager.designsystem.components.lists.TaskManagerListItem
 import ru.itis.taskmanager.designsystem.theme.TaskManagerSpacing
+import ru.itis.taskmanager.navigation.TaskManagerNavRoot
+import javax.inject.Inject
 
 
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as TaskManagerApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
-            UIKitShowcase()
+            TaskManagerTheme{
+                Surface {
+                    TaskManagerNavRoot(factory = viewModelFactory)
+                }
+            }
         }
     }
 }

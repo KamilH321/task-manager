@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Auth Screen -->
+    <string name="login_text">Вход</string>
+    <string name="greeting_text">Введите данные для входа в профиль</string>
+    <string name="username_label">Имя пользователя</string>
+    <string name="password_label">Пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="resister_button_text">Регистрация</string>
+
+    <!-- Reg Screen -->
+    <string name="back_button_text">Назад</string>
+    <string name="sign_up_button_text">Создать аккаунт</string>
+
+</resources>
