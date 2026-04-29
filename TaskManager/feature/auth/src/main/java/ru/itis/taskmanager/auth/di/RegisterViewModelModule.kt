@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.itis.taskmanager.auth.presentation.RegisterViewModel
-import ru.itis.taskmanager.utils.di.ViewModelKey
+import ru.itis.taskmanager.di.ViewModelKey
 
 @Module
 interface RegisterViewModelModule {

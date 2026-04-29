@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.itis.taskmanager.profile"
+    namespace = "ru.itis.taskmanager.tasks"
 }
 
 dependencies {

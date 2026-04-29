@@ -1,4 +1,4 @@
-package ru.itis.taskmanager.auth.di
+package ru.itis.taskmanager.di
 
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds

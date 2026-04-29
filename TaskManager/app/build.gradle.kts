@@ -25,6 +25,7 @@ dependencies {
     implementation(project(path = ":core:domain"))
     implementation(project(path = ":core:network"))
     implementation(project(path = ":core:utils"))
+    implementation(project(path = ":core:di"))
     implementation(project(path = ":core:designsystem"))
     implementation(project(path = ":core:navigation"))
     implementation(project(path = ":feature:auth"))

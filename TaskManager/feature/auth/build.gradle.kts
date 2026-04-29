@@ -14,7 +14,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:utils"))
+    implementation(project(":core:di"))
 
     // ViewModel
     implementation(libs.lifecycle.viewmodel.ktx)
