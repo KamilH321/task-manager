@@ -1,6 +1,6 @@
 package ru.itis.taskmanager.profile.presentation
 
-import ru.itis.taskmanager.domain.auth.model.User
+import ru.itis.taskmanager.domain.auth.model.auth.User
 
 data class ProfileUiState(
     val isLoading: Boolean = false,

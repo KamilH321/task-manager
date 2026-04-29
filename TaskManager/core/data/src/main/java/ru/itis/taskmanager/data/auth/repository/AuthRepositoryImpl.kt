@@ -1,8 +1,8 @@
 package ru.itis.taskmanager.data.auth.repository
 
 import ru.itis.taskmanager.data.auth.mapper.toDomain
-import ru.itis.taskmanager.domain.auth.model.AuthToken
-import ru.itis.taskmanager.domain.auth.model.User
+import ru.itis.taskmanager.domain.auth.model.auth.AuthToken
+import ru.itis.taskmanager.domain.auth.model.auth.User
 import ru.itis.taskmanager.domain.auth.repository.AuthRepository
 import ru.itis.taskmanager.domain.auth.repository.SessionRepository
 import ru.itis.taskmanager.network.api.AuthApiService

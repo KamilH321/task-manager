@@ -1,8 +1,8 @@
-package ru.itis.taskmanager.domain.auth.usecase
+package ru.itis.taskmanager.domain.auth.usecase.user
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.itis.taskmanager.domain.auth.model.User
+import ru.itis.taskmanager.domain.auth.model.auth.User
 import ru.itis.taskmanager.domain.auth.repository.AuthRepository
 import javax.inject.Inject
 

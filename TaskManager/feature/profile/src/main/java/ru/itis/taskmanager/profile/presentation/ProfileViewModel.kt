@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.itis.taskmanager.domain.auth.repository.SessionRepository
-import ru.itis.taskmanager.domain.auth.usecase.GetUserUseCase
+import ru.itis.taskmanager.domain.auth.usecase.user.GetUserUseCase
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(

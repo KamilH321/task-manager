@@ -1,7 +1,7 @@
 package ru.itis.taskmanager.data.auth.mapper
 
-import ru.itis.taskmanager.domain.auth.model.AuthToken
-import ru.itis.taskmanager.domain.auth.model.User
+import ru.itis.taskmanager.domain.auth.model.auth.AuthToken
+import ru.itis.taskmanager.domain.auth.model.auth.User
 import ru.itis.taskmanager.network.pojo.AuthTokenDto
 import ru.itis.taskmanager.network.pojo.UserDto
 

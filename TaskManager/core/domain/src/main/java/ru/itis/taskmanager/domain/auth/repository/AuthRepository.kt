@@ -1,7 +1,7 @@
 package ru.itis.taskmanager.domain.auth.repository
 
-import ru.itis.taskmanager.domain.auth.model.AuthToken
-import ru.itis.taskmanager.domain.auth.model.User
+import ru.itis.taskmanager.domain.auth.model.auth.AuthToken
+import ru.itis.taskmanager.domain.auth.model.auth.User
 
 interface AuthRepository {
 

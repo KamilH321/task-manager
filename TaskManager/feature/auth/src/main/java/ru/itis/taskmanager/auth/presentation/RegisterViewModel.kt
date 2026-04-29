@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.itis.taskmanager.domain.auth.usecase.RegisterUseCase
+import ru.itis.taskmanager.domain.auth.usecase.user.RegisterUseCase
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(

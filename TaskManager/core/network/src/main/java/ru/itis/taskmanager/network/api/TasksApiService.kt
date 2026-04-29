@@ -35,5 +35,5 @@ interface TasksApiService {
     @DELETE("/tasks/{taskId}")
     suspend fun delete(
         @Path("taskId") taskId: Int
-    ): Response<Unit>
+    )
 }

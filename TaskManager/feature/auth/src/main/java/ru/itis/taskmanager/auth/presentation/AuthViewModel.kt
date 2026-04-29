@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.itis.taskmanager.domain.auth.usecase.GetUserUseCase
-import ru.itis.taskmanager.domain.auth.usecase.LoginUseCase
+import ru.itis.taskmanager.domain.auth.usecase.user.GetUserUseCase
+import ru.itis.taskmanager.domain.auth.usecase.user.LoginUseCase
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
