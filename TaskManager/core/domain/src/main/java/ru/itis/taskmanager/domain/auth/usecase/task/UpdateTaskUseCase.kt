@@ -11,9 +11,9 @@ class UpdateTaskUseCase @Inject constructor(
     private val repository: TaskRepository
 ) {
 
-    suspend operator fun invoke(params: UpdateTaskParams): Task {
+    suspend operator fun invoke(taskId: Int, params: UpdateTaskParams): Result<Task> {
         return withContext(Dispatchers.IO) {
-            repository.updateTask(params)
+            repository.updateTask(taskId, params)
         }
     }
 }

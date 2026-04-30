@@ -11,7 +11,7 @@ class CreateTaskUseCase @Inject constructor(
     private val repository: TaskRepository
 ) {
 
-    suspend operator fun invoke(params: CreateTaskParams): Task {
+    suspend operator fun invoke(params: CreateTaskParams): Result<Task> {
         return withContext(Dispatchers.IO) {
             repository.createTask(params)
         }
