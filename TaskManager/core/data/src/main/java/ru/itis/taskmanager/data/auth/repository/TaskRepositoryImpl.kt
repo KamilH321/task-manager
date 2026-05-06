@@ -15,24 +15,18 @@ class TaskRepositoryImpl @Inject constructor(
     private val api: TasksApiService
 ): TaskRepository {
 
-    override suspend fun createTask(params: CreateTaskParams): Result<Task> = runCatching {
+    override suspend fun createTask(params: CreateTaskParams): Task =
         api.create(params.toRequest()).toDomain()
-    }
 
-
-    override suspend fun getTask(taskId: Int): Result<Task> = runCatching {
+    override suspend fun getTask(taskId: Int): Task =
         api.get(taskId).toDomain()
-    }
 
-    override suspend fun getTaskList(): Result<List<Task>> = runCatching {
+    override suspend fun getTaskList(): List<Task> =
         api.getTasksList().map { it.toDomain() }
-    }
 
-    override suspend fun updateTask(taskId: Int, params: UpdateTaskParams): Result<Task> = runCatching {
+    override suspend fun updateTask(taskId: Int, params: UpdateTaskParams): Task =
         api.update(taskId, params.toRequest()).toDomain()
-    }
 
-    override suspend fun deleteTask(taskId: Int): Result<Unit> = runCatching {
+    override suspend fun deleteTask(taskId: Int) =
         api.delete(taskId)
-    }
 }

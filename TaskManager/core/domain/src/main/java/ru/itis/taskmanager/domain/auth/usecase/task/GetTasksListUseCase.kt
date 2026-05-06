@@ -10,7 +10,7 @@ class GetTasksListUseCase @Inject constructor(
     private val repository: TaskRepository
 ) {
 
-    suspend operator fun invoke(): Result<List<Task>> {
+    suspend operator fun invoke(): List<Task> {
         return withContext(Dispatchers.IO) {
             repository.getTaskList()
         }
