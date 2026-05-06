@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.itis.taskmanager.buildconfig.api.BuildConfigProvider
 import ru.itis.taskmanager.network.api.AuthApiService
+import ru.itis.taskmanager.network.api.TasksApiService
 import ru.itis.taskmanager.network.interceptor.ApiKeyInterceptor
 import ru.itis.taskmanager.network.interceptor.AuthInterceptor
 import javax.inject.Named
@@ -49,5 +50,11 @@ object NetworkModule {
     @Singleton
     fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
         return retrofit.create(AuthApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTasksApiService(retrofit: Retrofit): TasksApiService {
+        return retrofit.create(TasksApiService::class.java)
     }
 }
