@@ -1,4 +1,4 @@
-package ru.itis.taskmanager.data.auth.mapper
+package ru.itis.taskmanager.data.mapper
 
 import ru.itis.taskmanager.domain.auth.model.auth.AuthToken
 import ru.itis.taskmanager.domain.auth.model.auth.User

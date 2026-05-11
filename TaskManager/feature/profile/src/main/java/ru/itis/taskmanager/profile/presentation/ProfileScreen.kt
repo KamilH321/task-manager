@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.itis.taskmanager.designsystem.components.buttons.TaskManagerButton
 import ru.itis.taskmanager.designsystem.components.cards.TaskManagerCard
+import ru.itis.taskmanager.domain.auth.model.auth.User
 import ru.itis.taskmanager.profile.R
 
 @Composable
@@ -42,7 +42,6 @@ fun ProfileRouteScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     state: ProfileUiState,
@@ -58,42 +57,70 @@ fun ProfileScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = stringResource(R.string.header_text),
-                style = MaterialTheme.typography.headlineMedium
-            )
+            ProfileHeader()
 
             if (state.isLoading) {
-                Text(
-                    text = stringResource(R.string.loading_text),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                ProfileLoadingText()
             }
 
             state.user?.let { user ->
-                TaskManagerCard(modifier = Modifier.fillMaxWidth()) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(stringResource(R.string.user_label), style = MaterialTheme.typography.titleMedium)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(stringResource(R.string.id_label, user.id))
-                        Text(stringResource(R.string.username_label_, user.username))
-                        Text(stringResource(R.string.created_at_label, user.createdAt))
-                    }
-                }
+                ProfileUserCard(user = user)
             }
 
-            state.errorMessage?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+            ProfileErrorMessage(errorResId = state.errorMessage)
 
-            TaskManagerButton(
-                text = stringResource(R.string.logout_button_text),
-                onClick = onLogoutClick
-            )
+            ProfileLogoutButton(onLogoutClick = onLogoutClick)
         }
     }
+}
+
+@Composable
+private fun ProfileHeader() {
+    Text(
+        text = stringResource(R.string.header_text),
+        style = MaterialTheme.typography.headlineMedium
+    )
+}
+
+@Composable
+private fun ProfileLoadingText() {
+    Text(
+        text = stringResource(R.string.loading_text),
+        style = MaterialTheme.typography.bodyMedium
+    )
+}
+
+@Composable
+private fun ProfileUserCard(user: User) {
+    TaskManagerCard(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(R.string.user_label),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = stringResource(R.string.id_label, user.id))
+            Text(text = stringResource(R.string.username_label_, user.username))
+            Text(text = stringResource(R.string.created_at_label, user.createdAt))
+        }
+    }
+}
+
+@Composable
+private fun ProfileErrorMessage(errorResId: Int?) {
+    errorResId?.let { resId ->
+        Text(
+            text = stringResource(resId),
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+private fun ProfileLogoutButton(onLogoutClick: () -> Unit) {
+    TaskManagerButton(
+        text = stringResource(R.string.logout_button_text),
+        onClick = onLogoutClick
+    )
 }

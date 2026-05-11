@@ -1,4 +1,4 @@
-package ru.itis.taskmanager.data.auth.storage
+package ru.itis.taskmanager.data.storage
 
 import android.content.SharedPreferences
 import ru.itis.taskmanager.domain.auth.repository.SessionRepository

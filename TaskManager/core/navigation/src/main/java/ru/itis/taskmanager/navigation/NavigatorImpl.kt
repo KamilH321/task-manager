@@ -16,18 +16,17 @@ class NavigatorImpl<T: NavKey>(
         backstack.add(route)
     }
 
-    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+
     override fun replace(route: T) {
         if (backstack.isNotEmpty()) {
-            backstack.removeLast()
+            backstack.removeLastOrNull()
         }
         backstack.add(route)
     }
 
-    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     override fun pop() {
         if (backstack.size > 1) {
-            backstack.removeLast()
+            backstack.removeLastOrNull()
         }
     }
 

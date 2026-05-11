@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.itis.taskmanager.auth.R
 import ru.itis.taskmanager.domain.auth.usecase.user.RegisterUseCase
 import javax.inject.Inject
 
@@ -28,7 +29,7 @@ class RegisterViewModel @Inject constructor(
     fun onRegisterClick() {
         val state = _uiState.value
         if (state.username.isBlank() || state.password.isBlank()) {
-            _uiState.update { it.copy(errorMessage = "Введите username и password") }
+            _uiState.update { it.copy(errorMessage = R.string.empty_inputs) }
             return
         }
 
@@ -45,11 +46,11 @@ class RegisterViewModel @Inject constructor(
                         errorMessage = null
                     )
                 }
-            }.onFailure { throwable ->
+            }.onFailure {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = throwable.message ?: "Ошибка регистрации"
+                        errorMessage = R.string.reg_error
                     )
                 }
             }

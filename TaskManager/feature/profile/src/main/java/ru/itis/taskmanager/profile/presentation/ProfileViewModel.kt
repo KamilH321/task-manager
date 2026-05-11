@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.itis.taskmanager.domain.auth.repository.SessionRepository
 import ru.itis.taskmanager.domain.auth.usecase.user.GetUserUseCase
+import ru.itis.taskmanager.profile.R
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
@@ -41,7 +42,7 @@ class ProfileViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = throwable.message ?: "Ошибка загрузки профиля"
+                        errorMessage = R.string.load_profile_error
                     )
                 }
             }

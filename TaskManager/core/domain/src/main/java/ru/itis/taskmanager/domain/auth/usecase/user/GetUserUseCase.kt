@@ -1,7 +1,5 @@
 package ru.itis.taskmanager.domain.auth.usecase.user
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import ru.itis.taskmanager.domain.auth.model.auth.User
 import ru.itis.taskmanager.domain.auth.repository.AuthRepository
 import javax.inject.Inject
@@ -11,8 +9,6 @@ class GetUserUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(): User {
-        return withContext(Dispatchers.IO){
-            repository.getUser()
-        }
+        return repository.getUser()
     }
 }

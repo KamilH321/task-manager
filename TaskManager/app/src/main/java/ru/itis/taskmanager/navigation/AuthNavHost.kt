@@ -1,7 +1,6 @@
 package ru.itis.taskmanager.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +14,6 @@ import ru.itis.taskmanager.auth.navigation.RegisterRoute
 import ru.itis.taskmanager.auth.navigation.authEntries
 
 
-@RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
 @Composable
 fun AuthNavHost(
     factory: ViewModelProvider.Factory,

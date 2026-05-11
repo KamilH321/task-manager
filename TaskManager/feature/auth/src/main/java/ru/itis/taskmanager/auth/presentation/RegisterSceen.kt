@@ -65,61 +65,111 @@ fun RegisterScreen(
                 .widthIn(max = 420.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            RegisterHeader()
+
+            RegisterInputFields(
+                username = state.username,
+                password = state.password,
+                onUsernameChange = onUsernameChange,
+                onPasswordChange = onPasswordChange
+            )
+
+            RegisterActionButtons(
+                isLoading = state.isLoading,
+                onRegisterClick = onRegisterClick,
+                onBackClick = onBackClick
+            )
+
+            RegisterStatusMessages(
+                errorMessageRes = state.errorMessage,
+                successMessage = state.successMessage
+            )
+        }
+    }
+}
+
+@Composable
+private fun RegisterHeader() {
+    Text(
+        text = stringResource(R.string.register_button_text),
+        style = MaterialTheme.typography.headlineMedium
+    )
+}
+
+@Composable
+private fun RegisterInputFields(
+    username: String,
+    password: String,
+    onUsernameChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        TaskManagerTextField(
+            value = username,
+            onValueChange = onUsernameChange,
+            label = stringResource(R.string.username_label),
+            singleLine = true
+        )
+
+        OutlinedTextField(
+            value = password,
+            onValueChange = onPasswordChange,
+            label = { Text(stringResource(R.string.password_label)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                errorCursorColor = MaterialTheme.colorScheme.error
+            )
+        )
+    }
+}
+
+@Composable
+private fun RegisterActionButtons(
+    isLoading: Boolean,
+    onRegisterClick: () -> Unit,
+    onBackClick: () -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        TaskManagerButton(
+            text = stringResource(R.string.sign_up_button_text),
+            onClick = onRegisterClick,
+            isLoading = isLoading
+        )
+
+        TaskManagerOutlinedButton(
+            text = stringResource(R.string.back_button_text),
+            onClick = onBackClick,
+            isLoading = isLoading
+        )
+    }
+}
+
+@Composable
+private fun RegisterStatusMessages(
+    errorMessageRes: Int?,
+    successMessage: String?
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        errorMessageRes?.let { resId ->
             Text(
-                text = stringResource(R.string.resister_button_text),
-                style = MaterialTheme.typography.headlineMedium
+                text = stringResource(resId),
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium
             )
+        }
 
-            TaskManagerTextField(
-                value = state.username,
-                onValueChange = onUsernameChange,
-                label = stringResource(R.string.username_label),
-                singleLine = true
+        successMessage?.let {
+            Text(
+                text = it,
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.bodyMedium
             )
-
-            OutlinedTextField(
-                value = state.password,
-                onValueChange = onPasswordChange,
-                label = { Text(stringResource(R.string.password_label)) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.surface,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                    focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    cursorColor = MaterialTheme.colorScheme.primary,
-                    errorCursorColor = MaterialTheme.colorScheme.error
-                )
-            )
-
-            TaskManagerButton(
-                text = stringResource(R.string.sign_up_button_text),
-                onClick = onRegisterClick,
-                isLoading = state.isLoading
-            )
-
-            TaskManagerOutlinedButton(
-                text = stringResource(R.string.back_button_text),
-                onClick = onBackClick,
-                isLoading = state.isLoading
-            )
-
-            state.errorMessage?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-
-            state.successMessage?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
         }
     }
 }

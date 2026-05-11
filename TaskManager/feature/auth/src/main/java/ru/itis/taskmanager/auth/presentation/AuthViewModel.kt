@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.itis.taskmanager.auth.R
 import ru.itis.taskmanager.domain.auth.usecase.user.GetUserUseCase
 import ru.itis.taskmanager.domain.auth.usecase.user.LoginUseCase
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class AuthViewModel @Inject constructor(
     fun onLoginClick() {
         val state = _uiState.value
         if (state.username.isBlank() || state.password.isBlank()) {
-            _uiState.update { it.copy(errorMessage = "Введите username и password") }
+            _uiState.update { it.copy(errorMessage = R.string.empty_inputs) }
             return
         }
 
@@ -42,11 +43,11 @@ class AuthViewModel @Inject constructor(
                 getUserUseCase()
             }.onSuccess {
                 _uiState.update { it.copy(isLoading = false, authenticated = true) }
-            }.onFailure { throwable ->
+            }.onFailure {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = throwable.message ?: "Ошибка авторизации"
+                        errorMessage = R.string.auth_error
                     )
                 }
             }

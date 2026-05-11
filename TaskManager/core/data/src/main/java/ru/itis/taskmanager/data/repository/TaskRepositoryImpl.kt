@@ -1,13 +1,14 @@
-package ru.itis.taskmanager.data.auth.repository
+package ru.itis.taskmanager.data.repository
 
-import ru.itis.taskmanager.data.auth.mapper.toDomain
-import ru.itis.taskmanager.data.auth.mapper.toRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ru.itis.taskmanager.data.mapper.toDomain
+import ru.itis.taskmanager.data.mapper.toRequest
 import ru.itis.taskmanager.domain.auth.model.task.CreateTaskParams
 import ru.itis.taskmanager.domain.auth.model.task.Task
 import ru.itis.taskmanager.domain.auth.model.task.UpdateTaskParams
 import ru.itis.taskmanager.domain.auth.repository.TaskRepository
 import ru.itis.taskmanager.network.api.TasksApiService
-import ru.itis.taskmanager.network.pojo.CreateTaskRequestDto
 import javax.inject.Inject
 import kotlin.text.get
 
@@ -16,17 +17,27 @@ class TaskRepositoryImpl @Inject constructor(
 ): TaskRepository {
 
     override suspend fun createTask(params: CreateTaskParams): Task =
-        api.create(params.toRequest()).toDomain()
+        withContext(Dispatchers.IO) {
+            api.create(params.toRequest()).toDomain()
+        }
 
     override suspend fun getTask(taskId: Int): Task =
-        api.get(taskId).toDomain()
+        withContext(Dispatchers.IO) {
+            api.get(taskId).toDomain()
+        }
 
     override suspend fun getTaskList(): List<Task> =
-        api.getTasksList().map { it.toDomain() }
+        withContext(Dispatchers.IO) {
+            api.getTasksList().map { it.toDomain() }
+        }
 
     override suspend fun updateTask(taskId: Int, params: UpdateTaskParams): Task =
-        api.update(taskId, params.toRequest()).toDomain()
+        withContext(Dispatchers.IO) {
+            api.update(taskId, params.toRequest()).toDomain()
+        }
 
     override suspend fun deleteTask(taskId: Int) =
-        api.delete(taskId)
+        withContext(Dispatchers.IO) {
+            api.delete(taskId)
+        }
 }

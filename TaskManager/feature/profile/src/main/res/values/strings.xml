@@ -8,4 +8,5 @@
     <string name="username_label_">Имя пользователя: %1$s</string>
     <string name="created_at_label">Дата регистрации: %1$s</string>
     <string name="logout_button_text">Выйти</string>
+    <string name="load_profile_error">Ошибка загрузки профиля</string>
 </resources>

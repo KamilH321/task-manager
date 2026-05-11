@@ -12,13 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.itis.taskmanager.auth.R
 import ru.itis.taskmanager.designsystem.components.buttons.TaskManagerButton
@@ -32,7 +32,7 @@ fun AuthRouteScreen(
     onAuthenticated: () -> Unit
 ) {
     val viewModel: AuthViewModel = viewModel(factory = factory)
-    val state by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(state.authenticated) {
         if (state.authenticated) {
@@ -67,59 +67,102 @@ fun AuthScreen(
                 .widthIn(max = 420.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = stringResource(R.string.login_text),
-                style = MaterialTheme.typography.headlineMedium
+            AuthHeader()
+
+            AuthInputFields(
+                username = state.username,
+                password = state.password,
+                onUsernameChange = onUsernameChange,
+                onPasswordChange = onPasswordChange
             )
 
-            Text(
-                text = stringResource(R.string.greeting_text),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+            AuthActionButtons(
+                isLoading = state.isLoading,
+                onLoginClick = onLoginClick,
+                onRegisterClick = onRegisterClick
             )
 
-            TaskManagerTextField(
-                value = state.username,
-                onValueChange = onUsernameChange,
-                label = stringResource(R.string.username_label),
-                singleLine = true
-            )
-
-            OutlinedTextField(
-                value = state.password,
-                onValueChange = onPasswordChange,
-                label = { Text(stringResource(R.string.password_label)) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.surface,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                    focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    cursorColor = MaterialTheme.colorScheme.primary,
-                    errorCursorColor = MaterialTheme.colorScheme.error
-                )
-            )
-
-            TaskManagerButton(
-                text = stringResource(R.string.login_button_text),
-                onClick = onLoginClick,
-                isLoading = state.isLoading
-            )
-
-            TaskManagerOutlinedButton(
-                text = stringResource(R.string.resister_button_text),
-                onClick = onRegisterClick,
-                isLoading = state.isLoading
-            )
-
-            state.errorMessage?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+            AuthErrorMessage(errorResId = state.errorMessage)
         }
+    }
+}
+
+@Composable
+private fun AuthHeader() {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Text(
+            text = stringResource(R.string.login_text),
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Text(
+            text = stringResource(R.string.greeting_text),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+private fun AuthInputFields(
+    username: String,
+    password: String,
+    onUsernameChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        TaskManagerTextField(
+            value = username,
+            onValueChange = onUsernameChange,
+            label = stringResource(R.string.username_label),
+            singleLine = true
+        )
+
+        OutlinedTextField(
+            value = password,
+            onValueChange = onPasswordChange,
+            label = { Text(stringResource(R.string.password_label)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                errorCursorColor = MaterialTheme.colorScheme.error
+            )
+        )
+    }
+}
+
+@Composable
+private fun AuthActionButtons(
+    isLoading: Boolean,
+    onLoginClick: () -> Unit,
+    onRegisterClick: () -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        TaskManagerButton(
+            text = stringResource(R.string.login_button_text),
+            onClick = onLoginClick,
+            isLoading = isLoading
+        )
+
+        TaskManagerOutlinedButton(
+            text = stringResource(R.string.register_button_text),
+            onClick = onRegisterClick,
+            isLoading = isLoading
+        )
+    }
+}
+
+@Composable
+private fun AuthErrorMessage(errorResId: Int?) {
+    errorResId?.let { resId ->
+        Text(
+            text = stringResource(id = resId),
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }

@@ -1,6 +1,8 @@
-package ru.itis.taskmanager.data.auth.repository
+package ru.itis.taskmanager.data.repository
 
-import ru.itis.taskmanager.data.auth.mapper.toDomain
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ru.itis.taskmanager.data.mapper.toDomain
 import ru.itis.taskmanager.domain.auth.model.auth.AuthToken
 import ru.itis.taskmanager.domain.auth.model.auth.User
 import ru.itis.taskmanager.domain.auth.repository.AuthRepository
@@ -18,12 +20,14 @@ class AuthRepositoryImpl @Inject constructor(
         username: String,
         password: String
     ): User {
-        return api.register(
-            AuthRequestDto(
-                username = username,
-                password = password
-            )
-        ).toDomain()
+        return withContext(Dispatchers.IO) {
+            api.register(
+                AuthRequestDto(
+                    username = username,
+                    password = password
+                )
+            ).toDomain()
+        }
     }
 
     override suspend fun login(
@@ -31,7 +35,7 @@ class AuthRepositoryImpl @Inject constructor(
         password: String
     ): AuthToken {
 
-        val tokenDto = api.login(
+        val tokenDto =  api.login(
             AuthRequestDto(
                 username = username,
                 password = password
@@ -40,10 +44,14 @@ class AuthRepositoryImpl @Inject constructor(
 
         sessionRepository.saveAccessToken(tokenDto.accessToken)
 
-        return tokenDto.toDomain()
+        return withContext(Dispatchers.IO) {
+            tokenDto.toDomain()
+        }
     }
 
     override suspend fun getUser(): User {
-        return api.getUser().toDomain()
+        return withContext(Dispatchers.IO) {
+            api.getUser().toDomain()
+        }
     }
 }
